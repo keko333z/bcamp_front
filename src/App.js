@@ -4,6 +4,7 @@ import { addNote, getAll, deleteRecurse, update, setToken,getNote } from './serv
 import { NoteForm } from './components/NotesForm'
 import { LoginForm } from './components/LoginForm'
 import { Note } from './components/Note'
+import { UserNote } from './components/UserNote'
 import { Notes } from './components/Notes'
 import { NotFound } from './components/NotFound'
 import { Container, Button } from 'react-bootstrap'
@@ -74,15 +75,18 @@ const App = () => {
 
 const handleNewNote = async (noteObj) => {
      let exist=null
-     exist=notes.find(element =>(element.title === noteObj.title)) 
+     exist=userNotes.find(element =>(element.title === noteObj.title)) 
         if (!exist)
         {
           try
           { 
           const note= await addNote(noteObj)//.then(note => {setNotes(note)})  
-          const notesArray= userNotes.concat(note)
-          setNotes(notesArray)
-          window.localStorage.setItem('allUserNotes',JSON.stringify(notesArray))  
+          const newUserNotes=userNotes.concat(note)
+          setUserNotes(newUserNotes)
+          setNotes(notes.concat(note))
+          window.localStorage.removeItem('allUserNotes')
+          window.localStorage.setItem('allUserNotes',JSON.stringify(newUserNotes))
+          console.log(newUserNotes)
           navigate('/notes/'+note.id)
           } catch (e){console.log(`error saving the new note ${e}`)}
      
@@ -140,26 +144,7 @@ const linkStyle = {
   padding : 5
 }
 
-/*const renderLoginForm =()=>(
-  
-    <div>
-    <form onSubmit={handleLoginForm}>
-      <input value={username} placeholder="username" onChange={handleUsername}></input>
-      <input type="password" value={password} placeholder="password" onChange={handlePassword}></input>
-      <button>Login</button>
-    </form>
-    </div>
-  
-)*/
 
-
-
-/*{
-      user === null ? 
-      <p>Log In</p>:
-      <button onClick={handleLogOut}>Log Out</button>
-    }
-    */
   return (
       
     <div style={{maxWidth: "60%", marginLeft: "20%", minHeight:"800px"}}>
@@ -193,6 +178,7 @@ const linkStyle = {
             <Route path="/" element={<Home notes={notes}/>}></Route>
             <Route path="/notes" element={<Notes notes={notes}/>}></Route>
             <Route path="/yourposts" element={<YourNotes userNotes={userNotes}/>}></Route>
+            <Route path="/yourposts/:id" element={<UserNote userNotes={userNotes} setUserNotes={setUserNotes}/>}></Route>
             <Route path="/notes/:id" element={<Note notes={notes}/>}></Route>
             <Route path="/users" element={<Users/>}></Route>
             <Route path="/followers" element={<Followers followers={followers}/>}></Route>
