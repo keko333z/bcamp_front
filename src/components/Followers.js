@@ -14,7 +14,7 @@ export const Followers = ({followers})=>{
                     <Table striped>
                         <tbody>
 
-                            {followers.map(follower => <tr key={follower.id}><td> <Link to={"/users/"+follower.id}>{follower.id} Username: {follower.username} Name: {follower.name} </Link></td></tr>)}
+                            {followers.map(follower => <tr key={follower.followerUserId}><td> <Link to={"/users/"+follower.followerUserId}>Username: {follower.username}</Link></td></tr>)}
 
                         </tbody>
                     </Table>

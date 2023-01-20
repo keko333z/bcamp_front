@@ -37,7 +37,9 @@ export const UserNote = ({userNotes}) => {
   const body=note.body    
   
     return <div id="singleNote">
-      <h3>Note</h3><div style={{minHeight: "300px", width: "50%"}}>{"Title: "+title+" Content: "}<div dangerouslySetInnerHTML={{ __html: body }} /></div>
+      <h3>{"Title: "+title}</h3>
+      <div style={{minHeight: "300px", width: "50%"}}>
+      <div dangerouslySetInnerHTML={{ __html: body }} /></div>
       <Button onClick={()=>{if(window.confirm('Delete the post?')){handleDelete(id, userNotes, navigate)}}}>Delete Post</Button>
     </div>
 }}

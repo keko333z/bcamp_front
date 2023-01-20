@@ -5,14 +5,13 @@ import { NoteForm } from './components/NotesForm'
 import { LoginForm } from './components/LoginForm'
 import { Note } from './components/Note'
 import { UserNote } from './components/UserNote'
-import { Notes } from './components/Notes'
 import { NotFound } from './components/NotFound'
-import { Container, Button } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import { Followers } from './components/Followers'
 import { Following } from './components/Following'
-import { Navigate } from 'react-router-dom'
 import { YourNotes } from './components/YourNotes'
 import { Home } from './components/Home'
+import {User} from './components/User'
 
 
 
@@ -25,14 +24,6 @@ const notificationMessage = {
 export const Notification = ({message}) => {
   return  <div style={notificationMessage}>{message}</div>
        
-}
-
-
-
-
-
-const Users= ()=>{
-  return <div><h1>Users</h1></div>
 }
 
 
@@ -57,7 +48,7 @@ const App = () => {
   useEffect (()=>{
 
     getAll()
-    .then(anotes=>setNotes(anotes))
+    .then(anotes=>setNotes(anotes.reverse()))
 
     const loggedUser = window.localStorage.getItem('userLoggedIn')
     const loggedUserNotes = window.localStorage.getItem('allUserNotes')
@@ -88,6 +79,7 @@ const handleNewNote = async (noteObj) => {
           window.localStorage.setItem('allUserNotes',JSON.stringify(newUserNotes))
           console.log(newUserNotes)
           navigate('/notes/'+note.id)
+          window.location.reload()
           } catch (e){console.log(`error saving the new note ${e}`)}
      
         } 
@@ -176,11 +168,11 @@ const linkStyle = {
       <div>          
           <Routes >
             <Route path="/" element={<Home notes={notes}/>}></Route>
-            <Route path="/notes" element={<Notes notes={notes}/>}></Route>
-            <Route path="/yourposts" element={<YourNotes userNotes={userNotes}/>}></Route>
+            
+            <Route path="/yourposts" element={<YourNotes  userNotes={userNotes}/>}></Route>
             <Route path="/yourposts/:id" element={<UserNote userNotes={userNotes} setUserNotes={setUserNotes}/>}></Route>
             <Route path="/notes/:id" element={<Note notes={notes}/>}></Route>
-            <Route path="/users" element={<Users/>}></Route>
+            <Route path="/users/:id" element={<User user={user} setUser={setUser} setFollowing={setFollowing}  notes={notes}/>}></Route>
             <Route path="/followers" element={<Followers followers={followers}/>}></Route>
             <Route path="/following" element={<Following following={following}/>}></Route>
             <Route path="/newnote" element={<NoteForm handleNewNote={handleNewNote}/>}></Route>
