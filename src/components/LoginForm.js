@@ -2,16 +2,18 @@ import React from "react"
 import { useState } from "react"
 import { setToken, getAllUserNotes } from "../services/notes"
 import { userLogin } from "../services/login"
-import { Button, Form } from "react-bootstrap"
+import { Button, Container, Form } from "react-bootstrap"
 import { Notification } from "../App"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
+import { useNavigate } from "react-router-dom"
 
 
 
-
-export const LoginForm = ({setUser, setUserNotes, setFollowers, setFollowing, setErrorMessage}) => {
+export const LoginForm = ({setUser, setUserNotes, setFollowers, setFollowing, setErrorMessage, errorMessage}) => {
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
-    
+    const navigate= useNavigate()
     const handleUsername=(event)=>{
         setUsername(event.target.value)
       }
@@ -43,21 +45,25 @@ export const LoginForm = ({setUser, setUserNotes, setFollowers, setFollowing, se
         setUserNotes(notes)
         setFollowers(userNotes.followers)
         setFollowing(userNotes.following)  
-        
+        console.log(userData)
+        navigate('/')
         } catch (e)
         { 
           console.error(e)
           setErrorMessage("Wrong username or password")
           setTimeout(()=>{setErrorMessage('')}, 4000)
         }
+        
        
 }
 
 
 return (
+<div  style={{ background: "blue", width: "100%" }}>
 
-<div >
-    <Form onSubmit={handleSubmit}>
+<Row ><Col >
+    
+    <Form style={{background: "yellow", marginTop: "50px",marginLeft: "30%",border: "2px solid grey", float: "right", padding: "20px",width: "80%"}} onSubmit={handleSubmit}>
       <Form.Group style={{padding: 5}} className="username">
          <Form.Control value={username} placeholder="username" onChange={handleUsername}></Form.Control>
       </Form.Group>
@@ -66,6 +72,11 @@ return (
       </Form.Group>
       <Button style={{float:"right" }} type="submit">Login</Button>
     </Form>
+
+</Col>
+<Col ><Notification style={{float: "left"}} message={errorMessage}></Notification></Col>
+</Row>
+
 </div>
 )
 }

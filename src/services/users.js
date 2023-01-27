@@ -15,3 +15,11 @@ export const getUser = async (id) => {
      const user= await axios.get(userUrl+"/"+id)
      return user.data
 }
+
+export const newUser = async (userObj) => {
+
+    const user = {  username: userObj.username, name: userObj.name, passwordHash: userObj.passwordHash, notes: [], followers:[], following: []}
+    const resp = await axios.post(userUrl,user)
+    return resp.data
+
+}

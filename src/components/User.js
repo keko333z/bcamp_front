@@ -8,12 +8,7 @@ import { setToken } from "../services/notes"
 
 
 const handleFollow= async (id, userToFollowName, user, setUser, setFollowing)=>{
-    const loggedUser = window.localStorage.getItem('userLoggedIn')
-
-    if(!loggedUser){
-        window.alert("Sign in to follow this user!")
-    }
-    else{
+   
     const userToFollow = { followingUserId: id, username: userToFollowName}
     const following = user.following.concat(userToFollow)
     console.log(following)
@@ -43,22 +38,17 @@ const handleFollow= async (id, userToFollowName, user, setUser, setFollowing)=>{
         console.log(e)
     }
    
-}}
+}
 
 const handleUnfollow= async (id,  user, setUser, setFollowing)=>{
-    const loggedUser = window.localStorage.getItem('userLoggedIn')
-
-    if(!loggedUser){
-        window.alert("Sign in to follow this user!")
-    }
-    else{
     
-    const following = user.following.filter(follow=>follow.id===id)
     
-    const newuser={...user, following }
+    const following =  user.following.filter(follow=>follow.followingUserId.toString()!==id.toString())
+    console.log(following)
+    const newuser={...user, following}
    
     
-    try{   /////añado al nuevo usuario que sigo
+    try{   ////
         const resp = await updateUser(newuser)
         window.localStorage.setItem('userLoggedIn',JSON.stringify(resp))
         setUser(resp)
@@ -69,10 +59,9 @@ const handleUnfollow= async (id,  user, setUser, setFollowing)=>{
         console.log(e)
        }
    
-    try{ /// me añado como seguidor en ese usuario
+    try{ /// me elimino como seguidor en ese usuario
     const userUnFollowed= await getUser(id)
-    
-    const newFollowersArray =userUnFollowed.followers.filter(follower => follower.id===user.id)
+    const newFollowersArray =userUnFollowed.followers.filter(follower => follower.id!==user.id)
     const followers = newFollowersArray
     const newUserWithFollower= {...userUnFollowed, followers}
     const resp = await updateUser(newUserWithFollower)
@@ -81,7 +70,7 @@ const handleUnfollow= async (id,  user, setUser, setFollowing)=>{
         console.log(e)
     }
 
-}}
+}
 
 
 
@@ -89,32 +78,39 @@ const handleUnfollow= async (id,  user, setUser, setFollowing)=>{
 export const User=({notes, user, setUser, setFollowing})=>{
 
     const {id}= useParams()
+    let display=" "
     
-    if((notes.length!==0)&&(user)){
+    if((notes.length!==0)){
 
-    const itsMe= id.toString() === user.id.toString()  
-    const disp= itsMe ? "none" : "initial"
+        if(user){
+            const itsMe= id.toString() === user.id.toString()  
+            display= itsMe ? "none" : "initial"
+            
+        }else{
+            display = "none"
+        }
+
     const onenote=notes.find(note => note.user.id === id)
     const userToFollowName = onenote.user.username
     const userToFollowNotes = notes.filter(note => note.user.id === id)
-    const alreadyfollowed= user?.following?.find(user => user.followingUserId === id)
+    
     const path="/notes/"
-
+    const alreadyfollowed= user?.following.find(user => user.followingUserId === id)
     if(alreadyfollowed)
     {
         return <div>
-                <div>User {userToFollowName} </div><div style={{display: disp}}><Link  onClick={()=>handleUnfollow(id, userToFollowName, user, setUser,setFollowing)}>  Unfollow</Link></div>
+                <div>User {userToFollowName} </div><div style={{display: display}}><Link  onClick={()=>handleUnfollow(id, user, setUser,setFollowing)}>  Unfollow</Link></div>
                 <h3>Latest posts:</h3>
-                <Notes notes={userToFollowNotes} path={path}></Notes>
+                <Notes username={userToFollowName} notes={userToFollowNotes} path={path}></Notes>
 
             </div>
     }
     else 
     {
         return <div>
-                <div>User {userToFollowName}</div><div style={{display: disp}}><Link onClick={()=>handleFollow(id, userToFollowName, user, setUser,setFollowing)}>  Follow</Link></div>
+                <div>User {userToFollowName}</div><div style={{display: display}}><Link onClick={()=>handleFollow(id, userToFollowName, user, setUser,setFollowing)}>  Follow</Link></div>
                 <h3>Latest posts:</h3>
-                <Notes notes={userToFollowNotes} path={path}></Notes>
+                <Notes  username={userToFollowName} notes={userToFollowNotes} path={path}></Notes>
 
             </div>
     }

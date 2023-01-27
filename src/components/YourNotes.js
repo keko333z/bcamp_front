@@ -5,6 +5,7 @@ import { Notes } from "./Notes"
 export const YourNotes = ({userNotes}) =>{
     const path="/yourposts/"
     const loggedUser = window.localStorage.getItem('userLoggedIn')
+   
     if(loggedUser){
         return(
         <>

@@ -14,7 +14,7 @@ export const Following = ({following})=>{
                         <Table striped>
                             <tbody>
           
-                                {following.map(following => <tr key={following.followingUserId}><td> <Link to={"/users/"+following.followingUserId}>{following.followingUserId} Username: {following.username} </Link></td></tr>)}
+                                {following.map(following => <tr key={following.followingUserId}><td> <Link to={"/users/"+following.followingUserId}> Username: {following.username} </Link></td></tr>)}
             
                             </tbody>
                         </Table>
