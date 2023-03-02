@@ -39,6 +39,7 @@ export const LoginForm = ({setUser, setUserNotes, setFollowers, setFollowing, se
         setUsername('')
         setPassword('')
         setToken(userData.token)
+        console.log(userData.token)
         const userNotes= await getAllUserNotes(userData)
         window.localStorage.setItem('allUserNotes',JSON.stringify(userNotes.notes))
         const notes=userNotes.notes.reverse()
@@ -59,11 +60,14 @@ export const LoginForm = ({setUser, setUserNotes, setFollowers, setFollowing, se
 
 
 return (
-<div  style={{ background: "blue", width: "100%" }}>
-
-<Row ><Col >
+<div style={{width: "100%"}}>
+<Container fluid="md" >
+<Row style={{width: "100%"}}>
+  <Col md={8}> 
     
-    <Form style={{background: "yellow", marginTop: "50px",marginLeft: "30%",border: "2px solid grey", float: "right", padding: "20px",width: "80%"}} onSubmit={handleSubmit}>
+    <Form style={{border: "2px solid grey",width: "65%", marginLeft:"35%", marginTop:"100px", minHeight: "200px",padding: "20px", borderRadius: "6px"}} 
+      onSubmit={handleSubmit}>
+        Log into your Account:
       <Form.Group style={{padding: 5}} className="username">
          <Form.Control value={username} placeholder="username" onChange={handleUsername}></Form.Control>
       </Form.Group>
@@ -73,10 +77,12 @@ return (
       <Button style={{float:"right" }} type="submit">Login</Button>
     </Form>
 
-</Col>
-<Col ><Notification style={{float: "left"}} message={errorMessage}></Notification></Col>
+  </Col>
+  <Col style={{marginTop:"100px"}} md={4}>
+    <Notification style={{float: "left"}} message={errorMessage}></Notification>
+  </Col>
 </Row>
 
-</div>
-)
+</Container>
+</div>)
 }

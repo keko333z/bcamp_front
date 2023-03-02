@@ -1,6 +1,7 @@
 import { getByPlaceholderText } from "@testing-library/react"
 import { Table } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { ProfileNav } from "./ProfileNav"
 
 export const Followers = ({followers})=>{
     const loggedUser = window.localStorage.getItem('userLoggedIn')
@@ -10,7 +11,8 @@ export const Followers = ({followers})=>{
     }
     else {
         return <div>
-                    <h2>Followers</h2>
+                    <ProfileNav></ProfileNav>
+                    <h4>Followers</h4>
                     <Table striped>
                         <tbody>
 

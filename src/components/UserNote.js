@@ -1,11 +1,12 @@
 import React from "react"
-import { Button } from "react-bootstrap"
+import { Button, Container } from "react-bootstrap"
 import { useParams } from "react-router-dom"
 import { deleteRecurse } from "../services/notes"
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { getNote } from "../services/notes"
 import { Spinner } from "react-bootstrap"
+import { Comments } from "./Comments"
 
 
 
@@ -47,11 +48,12 @@ export const UserNote = ({userNotes}) => {
   
   const title=note.title
   const body=note.body    
-    return <div id="singleNote">
+    return <Container style={{width: "80%", float: "center", background: "white"}}>
       <h3>{"Title: "+title}</h3>
       <div style={{minHeight: "300px", width: "50%"}}>
       <div dangerouslySetInnerHTML={{ __html: body }} /></div>
       <div>Views: {note.views}</div>
-      <Button onClick={()=>{if(window.confirm('Delete the post?')){handleDelete(id, userNotes, navigate)}}}>Delete Post</Button>
-    </div>
+      <Comments noteId={id} ></Comments>
+      <Button style={{marginTop: "40px"}}onClick={()=>{if(window.confirm('Delete the post?')){handleDelete(id, userNotes, navigate)}}}>Delete Post</Button>
+    </Container>
 }}}

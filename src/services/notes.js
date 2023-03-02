@@ -4,7 +4,7 @@ import axios from "axios"
 
 const notesUrl="http://localhost:3002/api/notes"
 
-let token= null
+export let token= null
 
 export const setToken = newToken => token = `bearer ${newToken}`
 

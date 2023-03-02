@@ -11,15 +11,16 @@ const handleFollow= async (id, userToFollowName, user, setUser, setFollowing)=>{
    
     const userToFollow = { followingUserId: id, username: userToFollowName}
     const following = user.following.concat(userToFollow)
-    console.log(following)
+    
     const newuser={...user, following }
-    console.log(newuser)
+   
 
     try{   /////añado al nuevo usuario que sigo
         const resp = await updateUser(newuser)
         window.localStorage.setItem('userLoggedIn',JSON.stringify(resp))
         setUser(resp)
         setToken(resp.token)
+        console.log(resp)
         setFollowing(resp.following)
         console.log(resp)
        }catch(e){

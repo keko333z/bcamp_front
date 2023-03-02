@@ -2,11 +2,13 @@ import React, { useEffect, useState} from "react"
 import { Link } from "react-router-dom"
 import { useParams } from "react-router-dom"
 import { getNote } from "../services/notes"
-import { Spinner } from "react-bootstrap"
+import { Container, Spinner } from "react-bootstrap"
 import { update } from "../services/notes"
 import { Notification } from "../App"
 import { updateUser } from "../services/users"
-
+import { CommentForm } from "./CommentForm"
+import { Comments } from "./Comments"
+import Button from "react-bootstrap/Button"
 
 
 
@@ -56,27 +58,38 @@ export const Note = ({notes, setNotes, user, setUser}) => {
       setNoteLikes(noteLikes+1)
       const likes=note.likes+1
       const newNote = {...note, likes}
-      const newNotes = notes.map(note => {if(note.id===id){return newNote} else {return note}})
-      //setNotes(newNotes)
-      //
-      //console.log(newNote)
-      //console.log(likes)
-      try{
-      const userResp = await updateUser(newUser)
-      //console.log(userResp)
-      const resp= await update(id,newNote)
-      console.log("resp user"+userResp)
-      console.log("resp note"+resp)
+      //const newNotes = notes.map(note => {if(note.id===id){return newNote} else {return note}})
       
-     // console.log(resp)
-      }catch(e){console.log(e); setNoteLikes(likes-1); setUser(user)}   
+      try{
+      await updateUser(newUser)
+      await update(id,newNote)
+      }
+      catch(e)
+      {
+        console.log(e); setNoteLikes(likes-1); setUser(user)
+      }   
   }}}
+
+
+  const noteStyle ={
+    img: {
+      maxWidth: "90%",
+      maxHeight: "90%",
+     
+    }
+  }
+
+
+
+/* CSS */
+
+
   
  
   if(!note){
      return <>
      
-     <Spinner animation="border" role="status" variant="success" > </Spinner>
+     <Spinner style={{marginLeft:"40%", marginTop:"50%"}} animation="border" role="status" variant="success" > </Spinner>
      </>
   } else{
   
@@ -89,16 +102,40 @@ export const Note = ({notes, setNotes, user, setUser}) => {
   const unote = notes.find(note => note.id === id)
   const poster=unote.user.username  
   const userId = unote.user.id
-
+   
     return (
-
-      <div id="singleNote">
+      <>
+      <Container style={{ 
+        minHeight: "600px", 
+        width: "80%", 
+        paddingLeft: "60px", 
+        paddingTop : "30px",
+        paddingRight: "60px",
+        paddingBottom: "60px",
+        borderRadius: "8px", 
+        float: "center",
+        border: "2px grey solid", 
+        marginTop: "20px", 
+        background: "white"}}>
+      <div className="noteHeader">
       <h3>{"Title: "+title}</h3>
-      <div style={{minHeight: "300px", width: "50%"}}><Link to={"/users/"+userId}>{"User: "+poster}</Link>
-      <div dangerouslySetInnerHTML={{ __html: body }}/></div>
-      <div>Views: {note.views} Likes: {noteLikes} {(postAlreadyLiked || alreadyLiked) ? <button disabled>Liked</button> : <button onClick={()=>addLike(userId)} >Like</button>}</div><Notification  message={message}></Notification>
+      <Link className="user-link" to={"/users/"+userId}>{"User: "+poster}</Link>
       </div>
-     
+      <div   style={{marginTop: "50px", marginLeft: "2.5%", minHeight: "300px", width: "100%"}}>  
+      <div dangerouslySetInnerHTML={{ __html: body }}/></div>
+      <div style={{ marginTop:"100px"}}>Views: {note.views} Likes: {noteLikes+"  " }  
+      {
+      (postAlreadyLiked || alreadyLiked) ? 
+      <Button variant="success">Liked</Button> : 
+      <Button variant="outline-success" onClick={()=>addLike(userId)} >Like</Button>}
+      </div>
+      <Notification  message={message}></Notification>
+      <CommentForm user={user} noteId={id}></CommentForm>
+      
+
+      </Container>
+      <Comments noteId={id} ></Comments>
+      </>
      
 )}}}
-/**/
+/* <Comment noteId={noteId}></Comment>*/
