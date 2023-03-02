@@ -4,9 +4,14 @@ import axios from "axios"
 
 const notesUrl="http://localhost:3002/api/notes"
 
-let token= null
+export let token= null
 
 export const setToken = newToken => token = `bearer ${newToken}`
+
+export const getNote= async (id)=>{
+    const note= await axios.get(notesUrl+"/"+id)
+    return note.data
+}
 
 export const addNote= async (noteObj) => {
      const config= { 
@@ -41,8 +46,11 @@ export const getAll= async ()=>{
 //console.log(response.data)
 
 export const update = (id, obj) => {
+    const config= { 
+        headers: {Authorization: token}
+     }
     
-    return axios.put(notesUrl+"/"+id, obj);
+    return axios.put(notesUrl+"/"+id, obj, config);
 }
 
 export const deleteRecurse = (id) => {

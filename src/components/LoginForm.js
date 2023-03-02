@@ -2,16 +2,18 @@ import React from "react"
 import { useState } from "react"
 import { setToken, getAllUserNotes } from "../services/notes"
 import { userLogin } from "../services/login"
-import { Button, Form } from "react-bootstrap"
+import { Button, Container, Form } from "react-bootstrap"
 import { Notification } from "../App"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
+import { useNavigate } from "react-router-dom"
 
 
 
-
-export const LoginForm = ({setUser, setUserNotes, setFollowers, setFollowing, setErrorMessage}) => {
+export const LoginForm = ({setUser, setUserNotes, setFollowers, setFollowing, setErrorMessage, errorMessage}) => {
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
-    
+    const navigate= useNavigate()
     const handleUsername=(event)=>{
         setUsername(event.target.value)
       }
@@ -32,32 +34,40 @@ export const LoginForm = ({setUser, setUserNotes, setFollowers, setFollowing, se
         try {
         const userData= await userLogin(userObj)
         setUser(userData)
+        console.log(userData)
         window.localStorage.setItem('userLoggedIn',JSON.stringify(userData))
         setUsername('')
         setPassword('')
         setToken(userData.token)
+        console.log(userData.token)
         const userNotes= await getAllUserNotes(userData)
         window.localStorage.setItem('allUserNotes',JSON.stringify(userNotes.notes))
-        console.log(userNotes.notes)
-        const notes=userNotes.notes
+        const notes=userNotes.notes.reverse()
         setUserNotes(notes)
         setFollowers(userNotes.followers)
         setFollowing(userNotes.following)  
-        
+        console.log(userData)
+        navigate('/')
         } catch (e)
         { 
           console.error(e)
           setErrorMessage("Wrong username or password")
           setTimeout(()=>{setErrorMessage('')}, 4000)
         }
+        
        
 }
 
 
 return (
-
-<div >
-    <Form onSubmit={handleSubmit}>
+<div style={{width: "100%"}}>
+<Container fluid="md" >
+<Row style={{width: "100%"}}>
+  <Col md={8}> 
+    
+    <Form style={{border: "2px solid grey",width: "65%", marginLeft:"35%", marginTop:"100px", minHeight: "200px",padding: "20px", borderRadius: "6px"}} 
+      onSubmit={handleSubmit}>
+        Log into your Account:
       <Form.Group style={{padding: 5}} className="username">
          <Form.Control value={username} placeholder="username" onChange={handleUsername}></Form.Control>
       </Form.Group>
@@ -66,6 +76,13 @@ return (
       </Form.Group>
       <Button style={{float:"right" }} type="submit">Login</Button>
     </Form>
-</div>
-)
+
+  </Col>
+  <Col style={{marginTop:"100px"}} md={4}>
+    <Notification style={{float: "left"}} message={errorMessage}></Notification>
+  </Col>
+</Row>
+
+</Container>
+</div>)
 }

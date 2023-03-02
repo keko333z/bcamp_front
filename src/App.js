@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import {Route, useNavigate, BrowserRouter, Link, Routes, useParams} from 'react-router-dom'
-import { addNote, getAll, deleteRecurse, update, setToken,getNote } from './services/notes'
+import {Route, useNavigate, Routes} from 'react-router-dom'
+import { addNote, getAll, deleteRecurse, update, setToken } from './services/notes'
 import { NoteForm } from './components/NotesForm'
 import { LoginForm } from './components/LoginForm'
+import { Footer } from './components/Footer'
 import { Note } from './components/Note'
 import { UserNote } from './components/UserNote'
-import { Notes } from './components/Notes'
 import { NotFound } from './components/NotFound'
-import { Container, Button } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import { Followers } from './components/Followers'
 import { Following } from './components/Following'
-import { Navigate } from 'react-router-dom'
 import { YourNotes } from './components/YourNotes'
+import { Header } from './components/Header'
 import { Home } from './components/Home'
+import {User} from './components/User'
+import { Register } from './components/Register'
+import { YourComments } from './components/YourComments'
+import { ProfileNav } from './components/ProfileNav'
+
 
 
 
@@ -28,16 +33,6 @@ export const Notification = ({message}) => {
 }
 
 
-
-
-
-const Users= ()=>{
-  return <div><h1>Users</h1></div>
-}
-
-
-
-
 const App = () => {
   const [ notes, setNotes ] = useState([]) 
   const [ followers, setFollowers] = useState([]) 
@@ -50,15 +45,16 @@ const App = () => {
   
   const navigate=useNavigate()
 
-
-
-
+  
+  
 
   useEffect (()=>{
+    getAll().then(anotes=>setNotes(anotes.reverse()))
+  },[])
 
-    getAll()
-    .then(anotes=>setNotes(anotes))
-
+  useEffect (()=>{
+    //se ejecuta cada vez q se recarga la pagina y solo esa vez
+   
     const loggedUser = window.localStorage.getItem('userLoggedIn')
     const loggedUserNotes = window.localStorage.getItem('allUserNotes')
     if(loggedUser){
@@ -66,10 +62,9 @@ const App = () => {
       setUser(user)
       setToken(user.token)
       const loggedUNotes=JSON.parse(loggedUserNotes)
-      setUserNotes(loggedUNotes)
+      setUserNotes(loggedUNotes.reverse())
       setFollowers(user.followers)
       setFollowing(user.following)
-      
     }
   }, [])
 
@@ -88,6 +83,7 @@ const handleNewNote = async (noteObj) => {
           window.localStorage.setItem('allUserNotes',JSON.stringify(newUserNotes))
           console.log(newUserNotes)
           navigate('/notes/'+note.id)
+          window.location.reload()
           } catch (e){console.log(`error saving the new note ${e}`)}
      
         } 
@@ -126,10 +122,6 @@ const deletePerson = (id)=>{
 
 
 
-
-
-
-
 const handleLogOut= ()=>{
   console.log('loggin out')
   window.localStorage.removeItem('userLoggedIn')
@@ -138,62 +130,48 @@ const handleLogOut= ()=>{
   setToken(null)
   setUserNotes([])
   navigate('/')
+  window.location.reload()
 }
 
-const linkStyle = {
-  padding : 5
-}
 
+ 
 
   return (
-      
-    <div style={{maxWidth: "60%", marginLeft: "20%", minHeight:"800px"}}>
-      
-      <Container>
-      
-      {
-      user === null ?
-        <>
-        <Notification message={errorMessage}></Notification>
-        <LoginForm setUser={setUser} setUserNotes={setUserNotes} setFollowers={setFollowers} setFollowing={setFollowing} setErrorMessage={setErrorMessage}/>
-        
-        </>
-        :
-        <div>
-        <div style={{paddingBottom: "50px"}}>User logged in: {user.username}  <Link  onClick={handleLogOut}>Log Out</Link></div>
-        <div style={{ maxWidth: "60%",minHeight: "80px"}}>
-        <Link style={linkStyle} to="/">Home</Link>
-        <Link style={linkStyle} to="/yourposts">Your Posts</Link>
-        <Link style={linkStyle} to="/newnote">New Post</Link>
-        <Link style={linkStyle} to="/followers">Followers</Link>
-        <Link style={linkStyle} to="/following">Following</Link>
-        </div>
-        
-        </div>
-      
-      }
+    <><Header user={user} handleLogOut={handleLogOut}></Header>
+    <div style={{background: "white",padding: "30px",borderRight: "2px solid grey", borderLeft: "2px solid grey", maxWidth: "70%", marginLeft: "15%", minHeight:"1800px",}}>
        
-      <div>          
+       <Container> 
+           
           <Routes >
-            <Route path="/" element={<Home notes={notes}/>}></Route>
-            <Route path="/notes" element={<Notes notes={notes}/>}></Route>
-            <Route path="/yourposts" element={<YourNotes userNotes={userNotes}/>}></Route>
-            <Route path="/yourposts/:id" element={<UserNote userNotes={userNotes} setUserNotes={setUserNotes}/>}></Route>
-            <Route path="/notes/:id" element={<Note notes={notes}/>}></Route>
-            <Route path="/users" element={<Users/>}></Route>
+            <Route path="/login" element={
+                 <LoginForm  errorMessage={errorMessage} setUser={setUser} setUserNotes={setUserNotes} setFollowers={setFollowers} setFollowing={setFollowing} setErrorMessage={setErrorMessage}/>
+              }></Route>
+            <Route path="/" element={<Home  notes={notes} user={user}/>}></Route>
+            <Route path="/registration" element={<Register  notes={notes}/>}></Route>
+            <Route path="/yourcomments" element={<YourComments/>}></Route>
+            <Route path="/yourposts" element={<YourNotes  userNotes={userNotes} user={user} />}></Route>
+            <Route path="/profile" element={<YourNotes  userNotes={userNotes} user={user}/>}></Route>
+            <Route path="/yourposts/:id"  element={<UserNote  userNotes={userNotes} setUserNotes={setUserNotes}/>}></Route>
+            <Route path="/notes/:id"   element={<Note user={user} setUser={setUser} setNotes={setNotes} notes={notes}/>}></Route>
+            <Route path="/users/:id" element={
+                <User  user={user} setUser={setUser} setFollowing={setFollowing}  notes={notes}/>
+                }></Route>
             <Route path="/followers" element={<Followers followers={followers}/>}></Route>
             <Route path="/following" element={<Following following={following}/>}></Route>
             <Route path="/newnote" element={<NoteForm handleNewNote={handleNewNote}/>}></Route>
             <Route path="/*" element={<NotFound />} />
           </Routes>       
 
-        </div>
+       
       
         </Container>
       
     </div>
-  )
-}
+    <Footer></Footer>
+    </>
+  )}
+
+
 /*<ol>
       
       {notes.map(note => <li><p key={note.name}>Name: {note.name} Capital: {note.capital} <strong>Region: {note.region}</strong></p></li>)}

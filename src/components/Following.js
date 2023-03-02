@@ -1,6 +1,7 @@
 import { getByPlaceholderText } from "@testing-library/react"
 import { Table } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { ProfileNav } from "./ProfileNav"
 
 export const Following = ({following})=>{
     const loggedUser = window.localStorage.getItem('userLoggedIn')
@@ -10,11 +11,12 @@ export const Following = ({following})=>{
     }
     else {
         return  <div>
-                    <h2>Following</h2>
+                    <ProfileNav></ProfileNav>
+                    <h4>Following</h4>
                         <Table striped>
                             <tbody>
           
-                                {following.map(follower => <tr key={follower.id}><td> <Link to={"/users/"+follower.id}>{follower.id} Username: {follower.username} Name: {follower.name} </Link></td></tr>)}
+                                {following.map(following => <tr key={following.followingUserId}><td> <Link to={"/users/"+following.followingUserId}> Username: {following.username} </Link></td></tr>)}
             
                             </tbody>
                         </Table>

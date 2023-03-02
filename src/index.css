@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 50px;
+  
 }
 
 code {
@@ -14,7 +14,7 @@ code {
 }
 
 h2 {
-  color: green;
+  color: rgb(66, 71, 66);
 }
 li {
   font-weight: bold;
@@ -22,3 +22,102 @@ li {
 form {
   margin-left: 20px;
 }
+img {
+  max-width: 90%;
+  max-height: 90%;
+  
+}
+
+.user-link {
+  text-decoration: none !important;
+  font-family: Arial;
+  color: #E5F8D4 !important;
+}
+.note-link{
+  text-decoration: none !important;
+  font-family:  Arial;
+  
+  color: Black
+}
+     
+.noteHeader{
+  background: #193202 ;
+  color: whitesmoke;
+  padding: 20px;
+  border-radius: 5px;
+}
+.notes-card{
+  margin-top: 8px;  
+}
+
+.registerForm {
+  float: left;
+  padding: 20px;
+  border-radius: 5px;
+  border: 2px grey solid;
+  margin-left: 25%;
+  margin-top: 100px;
+  width: 50%;
+      
+}
+
+.side-box{
+
+  width: 30%;
+  min-height: 200px;
+  float: right;
+  margin-right: 2%;
+  
+ 
+
+}
+
+.sideNotesContainerStyle {
+  width:90%;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  
+  padding: 10px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.sideNotesRowStyle { 
+    
+  width: 95%;
+  margin-left: 2% !important;
+  margin-top: 10px !important;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+  
+}
+
+.sideNotesHeader {
+  font-size: 12px;
+  height: 20px;
+  color: #636CB0;
+  margin-bottom: 10px;
+  text-decoration: none;
+  font-family:  Helvetica;
+}
+.sideNotesHeader:hover{
+  color: #0FAA16;
+
+}
+.footerStyle {
+  position: sticky;
+  min-height: 150px;
+  text-align: center;
+  padding: 20px;
+  background: #212221 ;
+  text-decoration: none !important;
+  font-family: Arial;
+  color: #46d35d !important;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  
+  border-right: 2px solid grey;
+  border-left: 2px solid grey;
+  box-Shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
