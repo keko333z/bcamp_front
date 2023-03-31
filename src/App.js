@@ -152,21 +152,6 @@ const handleLogOut= ()=>{
   )}
 
 
-/*<ol>
-      
-      {notes.map(note => <li><p key={note.name}>Name: {note.name} Capital: {note.capital} <strong>Region: {note.region}</strong></p></li>)}
-      
-      </ol>*/
 
-/* <button onClick={()=>deletePerson(note.id)}>Delete</button>*/
 export default App
 
-//<button onClick={()=>deletePerson(note.id)}>Delete</button>
-
-/*
-<form >
-        <div>
-          name: <input value={findName} onChange={findPerson} />
-        </div>
-      </form>
-*/
