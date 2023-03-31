@@ -2,7 +2,7 @@ import axios from "axios"
 
 
 
-const notesUrl="http://localhost:3002/api/notes"
+const notesUrl="/api/notes"
 
 export let token= null
 
@@ -17,7 +17,7 @@ export const addNote= async (noteObj) => {
      const config= { 
         headers: {Authorization: token}
      }
-     console.log("front side "+ token)
+    
      const resp= await axios.post(notesUrl, noteObj, config)
     
     return resp.data
@@ -27,7 +27,7 @@ export const addNote= async (noteObj) => {
 
 export const getAllUserNotes= async (user)=>{
         const id=user.id
-        const url ="http://localhost:3002/api/users/"+id
+        const url ="/api/users/"+id
         const notes= await axios.get(url)
         return notes.data
      
@@ -35,9 +35,7 @@ export const getAllUserNotes= async (user)=>{
 }
 export const getAll= async ()=>{
     
-    const url ="http://localhost:3002/api/notes"
-    
-    const notes= await axios.get(url)
+    const notes= await axios.get(notesUrl)
     return notes.data
  
    

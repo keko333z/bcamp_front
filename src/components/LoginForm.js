@@ -34,19 +34,19 @@ export const LoginForm = ({setUser, setUserNotes, setFollowers, setFollowing, se
         try {
         const userData= await userLogin(userObj)
         setUser(userData)
-        console.log(userData)
+        
         window.localStorage.setItem('userLoggedIn',JSON.stringify(userData))
         setUsername('')
         setPassword('')
         setToken(userData.token)
-        console.log(userData.token)
+        
         const userNotes= await getAllUserNotes(userData)
         window.localStorage.setItem('allUserNotes',JSON.stringify(userNotes.notes))
         const notes=userNotes.notes.reverse()
         setUserNotes(notes)
         setFollowers(userNotes.followers)
         setFollowing(userNotes.following)  
-        console.log(userData)
+        
         navigate('/')
         } catch (e)
         { 

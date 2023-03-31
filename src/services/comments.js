@@ -4,7 +4,7 @@ import { token } from "./notes"
 
 
 
-const notesUrl="http://localhost:3002/api/comments"
+const notesUrl="/api/comments"
 
 
 

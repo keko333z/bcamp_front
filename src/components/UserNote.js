@@ -39,6 +39,20 @@ export const UserNote = ({userNotes}) => {
     
   },[id])
   
+  const containerStyle={
+    minHeight: "600px", 
+  width: "80%", 
+  paddingLeft: "60px", 
+  paddingTop : "30px",
+  paddingRight: "60px",
+  paddingBottom: "60px",
+  borderRadius: "8px", 
+  float: "center",
+  border: "2px grey solid", 
+  marginTop: "20px", 
+  marginBottom: "50px",
+  background: "white"}
+
   if(!note){
      return <Spinner animation="border" role="status" variant="success" > </Spinner>
   } 
@@ -48,9 +62,11 @@ export const UserNote = ({userNotes}) => {
   
   const title=note.title
   const body=note.body    
-    return <Container style={{width: "80%", float: "center", background: "white"}}>
+    return <Container style={containerStyle}>
+      <div className="noteHeader">
       <h3>{"Title: "+title}</h3>
-      <div style={{minHeight: "300px", width: "50%"}}>
+      </div>
+      <div style={{marginTop: "50px", marginLeft: "2.5%", minHeight: "300px", width: "100%"}}>
       <div dangerouslySetInnerHTML={{ __html: body }} /></div>
       <div>Views: {note.views}</div>
       <Comments noteId={id} ></Comments>

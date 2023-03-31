@@ -89,7 +89,7 @@ export const Note = ({notes, setNotes, user, setUser}) => {
   if(!note){
      return <>
      
-     <Spinner style={{marginLeft:"40%", marginTop:"50%"}} animation="border" role="status" variant="success" > </Spinner>
+     <Spinner style={{marginLeft:"40%", marginTop:"30%"}} animation="border" role="status" variant="success" > </Spinner>
      </>
   } else{
   
@@ -118,7 +118,7 @@ export const Note = ({notes, setNotes, user, setUser}) => {
         marginTop: "20px", 
         background: "white"}}>
       <div className="noteHeader">
-      <h3>{"Title: "+title}</h3>
+      <h3>{title}</h3>
       <Link className="user-link" to={"/users/"+userId}>{"User: "+poster}</Link>
       </div>
       <div   style={{marginTop: "50px", marginLeft: "2.5%", minHeight: "300px", width: "100%"}}>  

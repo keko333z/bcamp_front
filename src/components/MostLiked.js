@@ -24,11 +24,11 @@ export const MostLiked = () =>{
             {result.data.mostLiked.map(note => 
                         <Link className="sideNotesHeader" key={note.id} to={path+note.id}>
                             <Row className="sideNotesRowStyle" key={note.id}>
-                              <div >
+                              <div>
                                 <b>User: {note?.user}  Likes: {note.likes}</b>
                               </div>
-                              <div >
-                                <h5>{note.title+"  "}</h5>
+                              <div>
+                                <h6>{note.title+"  "}</h6>
                               </div>
                               
                             </Row>

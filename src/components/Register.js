@@ -45,17 +45,24 @@ export const Register = () => {
         event.preventDefault() //controlar que todos los campos esten completos
         
         if(password===repeatPassword){
-        try {
-        const userObj = { username: username, name: name, passwordHash: password}
-        const resp = await newUser(userObj)
-        console.log(resp)
-        window.confirm("User created, you can log in now" )
-        navigate("/")
-  
-        }
-        catch (e){ console.log("Couldn't create the user"+e )}
+            if((name.length > 20 )|| (username.length > 20)){
+                window.alert("name or username is too long")
+            }
+            else{
+                try {
+                    const userObj = { username: username, name: name, passwordHash: password}
+                    const resp = await newUser(userObj)
+                    console.log(resp)
+                    if(resp)
+                    {
+                        window.confirm("User created, you can log in now" )
+                        navigate("/")
+                    }   
+                    else window.alert("Semething went wrong, try again later")
+                }
+                catch (e){ console.log("Couldn't create the user"+e )}
         
-        }
+            }}
         
          else 
         {
@@ -71,11 +78,11 @@ export const Register = () => {
             
             <Form.Group style={{padding: 5}} className="name">
                 {name.length > 20 ? <Notification message={"Name too long, 20 chars max"} /> : ""}
-                <Form.Control value={name} placeholder="name"  pattern="[a-zA-Z0-9]{20}" onChange={handleName}></Form.Control>
+                <Form.Control value={name} placeholder="name"  onChange={handleName}></Form.Control>
             </Form.Group>
             <Form.Group style={{padding: 5}} className="username">
                 {username.length > 20 ? <Notification message={"Username too long, 20 chars max"} /> : ""}
-                <Form.Control value={username} placeholder="username"  pattern="[a-zA-Z0-9]{20}" onChange={handleUsername}></Form.Control>
+                <Form.Control value={username} placeholder="username"  onChange={handleUsername}></Form.Control>
             </Form.Group>
             <Form.Group style={{padding: 5}} className="password">
                 <Form.Control  type="password" value={password} placeholder="password" onChange={handlePassword}></Form.Control>
