@@ -30,7 +30,7 @@ export const MostViewed = () =>{
                                     <b>User: {note?.user}  Views: {note.views}</b>
                                   </div>
                                   <div >
-                                    <h5>{note.title+"  "}</h5>
+                                    <h6>{note.title+"  "}</h6>
                                   </div>
                                   
                                 </Row>

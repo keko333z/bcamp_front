@@ -11,7 +11,8 @@ import {Spinner} from "react-bootstrap"
 const commentsContainerStyle = {
     borderTop: "3px solid grey",
     marginTop: "50px",
-    marginBottom: "20px"
+    marginBottom: "20px",
+    minHeight: "100px"
 }
 
 const commentRowStyle = {
@@ -38,10 +39,7 @@ export const Comments = ({noteId}) => {
     
        
      
-     console.log(comments)
     
-
-
 
      if(!comments){
         return <>

@@ -11,7 +11,10 @@ export const YourNotes = ({userNotes, user}) =>{
     const path="/yourposts/"
     const loggedUser = window.localStorage.getItem('userLoggedIn')
    
-    if(loggedUser){
+    if(loggedUser)
+    
+    
+    {
         
         
         return(

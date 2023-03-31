@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {Route, useNavigate, Routes} from 'react-router-dom'
-import { addNote, getAll, deleteRecurse, update, setToken } from './services/notes'
+import { addNote, getAll, update, setToken } from './services/notes'
 import { NoteForm } from './components/NotesForm'
 import { LoginForm } from './components/LoginForm'
 import { Footer } from './components/Footer'
@@ -16,7 +16,8 @@ import { Home } from './components/Home'
 import {User} from './components/User'
 import { Register } from './components/Register'
 import { YourComments } from './components/YourComments'
-import { ProfileNav } from './components/ProfileNav'
+import { About } from './components/About'
+
 
 
 
@@ -37,24 +38,20 @@ const App = () => {
   const [ notes, setNotes ] = useState([]) 
   const [ followers, setFollowers] = useState([]) 
   const [ following, setFollowing ] = useState([]) 
-  const [ findName, setFindName ] = useState('')
-  const [ foundName, setFoundName ] = useState([])
   const [user, setUser] = useState(null)
   const [userNotes, setUserNotes] = useState([])
   const [errorMessage, setErrorMessage] = useState('')
   
   const navigate=useNavigate()
 
-  
-  
 
-  useEffect (()=>{
+  useEffect (()=>{ /// habria que limitar la cantidad de posts que se carga en caso de que se hagan muchas publicaciones
     getAll().then(anotes=>setNotes(anotes.reverse()))
   },[])
 
+
   useEffect (()=>{
-    //se ejecuta cada vez q se recarga la pagina y solo esa vez
-   
+    //se ejecuta cada vez q se recarga la pagina y solo esa vez 
     const loggedUser = window.localStorage.getItem('userLoggedIn')
     const loggedUserNotes = window.localStorage.getItem('allUserNotes')
     if(loggedUser){
@@ -67,6 +64,7 @@ const App = () => {
       setFollowing(user.following)
     }
   }, [])
+
 
 const handleNewNote = async (noteObj) => {
      let exist=null
@@ -95,32 +93,6 @@ const handleNewNote = async (noteObj) => {
 }
 
 
-const findPerson = (event) => {
-  setFindName(event.target.value)
-  const text= event.target.value
-  const found= notes.filter(element => {
-    return element.name.toLowerCase().includes(text.toLowerCase())
-  })
-  setFoundName([])
-  setFoundName(found)
-}
-
-
-const displayNote = (name) => {
-  const text= name
-  const found= notes.filter(element => {
-    return element.name.toLowerCase().includes(text.toLowerCase())
-  })
-  setFoundName([])
-  setFoundName(found)
-}
-
-
-const deletePerson = (id)=>{
-  deleteRecurse(id).then(response => console.log("Deleted "+response.data))
-}
-
-
 
 const handleLogOut= ()=>{
   console.log('loggin out')
@@ -137,16 +109,19 @@ const handleLogOut= ()=>{
  
 
   return (
-    <><Header user={user} handleLogOut={handleLogOut}></Header>
-    <div style={{background: "white",padding: "30px",borderRight: "2px solid grey", borderLeft: "2px solid grey", maxWidth: "70%", marginLeft: "15%", minHeight:"1800px",}}>
-       
-       <Container> 
+    <>
+    <Header user={user} handleLogOut={handleLogOut}></Header>
+    
+    <Container className='app-container'>
+   
+      
            
           <Routes >
             <Route path="/login" element={
                  <LoginForm  errorMessage={errorMessage} setUser={setUser} setUserNotes={setUserNotes} setFollowers={setFollowers} setFollowing={setFollowing} setErrorMessage={setErrorMessage}/>
               }></Route>
             <Route path="/" element={<Home  notes={notes} user={user}/>}></Route>
+            <Route path="/about" element={<About />}></Route>
             <Route path="/registration" element={<Register  notes={notes}/>}></Route>
             <Route path="/yourcomments" element={<YourComments/>}></Route>
             <Route path="/yourposts" element={<YourNotes  userNotes={userNotes} user={user} />}></Route>
@@ -163,11 +138,16 @@ const handleLogOut= ()=>{
           </Routes>       
 
        
-      
-        </Container>
-      
-    </div>
-    <Footer></Footer>
+         
+        
+          
+               
+    </Container>
+    
+    <Footer></Footer>  
+    
+         
+   
     </>
   )}
 

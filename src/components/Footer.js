@@ -7,8 +7,8 @@ import { Container, Row, Col } from "react-bootstrap"
 export const Footer = () => {
    
       
-    return <div className="footerStyle">
-            <Container fluid="md">
+    return <Container className="footerStyle">
+            
                     <Row  className="justify-content-center">
                         <Col xs={2} >
                             <Row >NodeJS</Row>
@@ -29,9 +29,10 @@ export const Footer = () => {
                         <Col xs={4}>
                             <Row className="justify-content-start"> Mariano Nuñez  </Row>
                             <Row className="justify-content-start"> marianojnz@gmail.com  </Row>
+                            <Row className="justify-content-start"> 2023  </Row>
                         </Col>
                     </Row>
-            </Container>
-        </div>
+            
+        </Container>
         
 }

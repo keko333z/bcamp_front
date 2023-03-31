@@ -2,7 +2,7 @@ import axios from "axios"
 
 
 
-const userUrl="http://localhost:3002/api/users"
+const userUrl="/api/users"
 
 export const updateUser= async (userObj)=>{
     const user= await axios.put(userUrl+"/"+userObj.id, userObj);

@@ -1,9 +1,4 @@
-import { YourComments } from "./YourComments"
-import { YourNotes } from "./YourNotes"
-import { Notes } from "./Notes"
-import { Followers } from "./Followers"
-import { Following } from "./Following"
-import { Link, Routes, Route } from "react-router-dom"
+
 import { Nav } from "react-bootstrap"
 
 
@@ -19,16 +14,16 @@ export const ProfileNav = () =>{
         
         <Nav style={{marginBottom: "100px"}} activeKey={path} variant="tabs">
             <Nav.Item>
-                <Nav.Link  href="/yourposts">Posts</Nav.Link>
+                <Nav.Link  href="#/yourposts">Posts</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link  href="/yourcomments">Comments</Nav.Link>
+                <Nav.Link  href="#/yourcomments">Comments</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link href="/followers">Followers</Nav.Link>
+                <Nav.Link href="#/followers">Followers</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link  href="/following">Following</Nav.Link>
+                <Nav.Link  href="#/following">Following</Nav.Link>
             </Nav.Item>
         </Nav>
         

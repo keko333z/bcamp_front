@@ -78,7 +78,7 @@ const handleNewBody = (html) => {
 const handleSubmit=(event)=>{
     event.preventDefault()
     
-    if((chars > 5000)||(newTitle.length >= 100)){
+    if((chars > 10000)||(newTitle.length >= 100)){
       window.alert("Title or Post too long")
     }
     else{
@@ -109,7 +109,7 @@ return(
             <Form.Control value={newTitle} placeholder="new title" onChange={handleNewTitle}></Form.Control>
         </Form.Group>
         
-        {chars+ "/5000"}
+        {chars+ "/10000"}
         <Form.Group className="body">
           <ReactQuill  
                     style={{ height: "500px"}} 

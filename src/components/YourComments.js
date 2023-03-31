@@ -9,7 +9,9 @@ import { ProfileNav } from "./ProfileNav"
 const commentsContainerStyle = {
     
     marginBottom: "20px",
-    padding: "20px"
+    padding: "20px", 
+    width: "60%",
+    marginLeft:"10%"
 }
 
 const commentRowStyle = {
