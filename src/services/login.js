@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 
-const loginUrl="/api/login"
+const loginUrl="https://turquoise-angler-cuff.cyclic.app/api/login"
 
 export const userLogin = async (userObj)=>{
     let resp =null

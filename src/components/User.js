@@ -47,7 +47,6 @@ const handleUnfollow= async (id,  user, setUser, setFollowing)=>{
     
     
     const following =  user.following.filter(follow=>follow.followingUserId !== id)
-    console.log(following)
     const newuser={...user, following}
    
     

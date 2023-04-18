@@ -2,7 +2,7 @@ import axios from "axios"
 
 
 
-const notesUrl="/api/notes"
+const notesUrl="https://turquoise-angler-cuff.cyclic.app/api/notes"
 
 export let token= null
 
@@ -21,44 +21,28 @@ export const addNote= async (noteObj) => {
      const resp= await axios.post(notesUrl, noteObj, config)
     
     return resp.data
-    //.then(response => {const {data} = response; return data})
-    //.catch((error)=>{console.log(`error saving the new note ${error}`)})
 }
 
 export const getAllUserNotes= async (user)=>{
         const id=user.id
-        const url ="/api/users/"+id
+        const url ="https://turquoise-angler-cuff.cyclic.app/api/users/"+id
         const notes= await axios.get(url)
-        return notes.data
-     
-       
-}
-export const getAll= async ()=>{
-    
-    const notes= await axios.get(notesUrl)
-    return notes.data
- 
-   
+        return notes.data   
 }
 
-//console.log(response.data)
+export const getAll= async ()=>{
+    const notes= await axios.get(notesUrl)
+    return notes.data
+}
 
 export const update = (id, obj) => {
     const config= { 
         headers: {Authorization: token}
      }
-    
     return axios.put(notesUrl+"/"+id, obj, config);
 }
 
 export const deleteRecurse = (id) => {
-    
    return axios.delete(notesUrl+"/"+id)
 }
 
-/*export const getNote= async (id)=>{
-    const note= await axios.get(notesUrl+"/"+id)
-    
-    return note
-}
-*/

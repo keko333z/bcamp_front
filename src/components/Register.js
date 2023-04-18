@@ -1,6 +1,6 @@
 import React from "react"
 import { useState } from "react"
-import { Alert, Button, Form, FormLabel } from "react-bootstrap"
+import { Button, Form } from "react-bootstrap"
 import { newUser } from "../services/users"
 import { useNavigate} from "react-router-dom"
 import { Notification } from "../App"
@@ -52,7 +52,7 @@ export const Register = () => {
                 try {
                     const userObj = { username: username, name: name, passwordHash: password}
                     const resp = await newUser(userObj)
-                    console.log(resp)
+                    
                     if(resp)
                     {
                         window.confirm("User created, you can log in now" )

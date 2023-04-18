@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { HashRouter, BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 import { 
     ApolloClient, ApolloProvider, HttpLink, InMemoryCache
@@ -13,7 +13,7 @@ import {
   const client = new ApolloClient({
     cache: new InMemoryCache(),
     link: new HttpLink({
-      uri: '/graphql',
+      uri: 'https://turquoise-angler-cuff.cyclic.app/graphql',
     })
   })
 

@@ -15,7 +15,7 @@ const handleDelete = (id,  userNotes, navigate) => {
   deleteRecurse(id)
   const notesAfterDelete = userNotes.filter(note => note.id !== id).reverse()
   console.log(notesAfterDelete)
-  window.localStorage.removeItem('note')
+  window.localStorage.removeItem('note') //?
   window.localStorage.removeItem('allUserNotes')
   window.localStorage.setItem('allUserNotes',JSON.stringify(notesAfterDelete))
   console.log("deleted")
@@ -40,7 +40,7 @@ export const UserNote = ({userNotes}) => {
   },[id])
   
   const containerStyle={
-    minHeight: "600px", 
+  minHeight: "600px", 
   width: "80%", 
   paddingLeft: "60px", 
   paddingTop : "30px",
@@ -70,6 +70,6 @@ export const UserNote = ({userNotes}) => {
       <div dangerouslySetInnerHTML={{ __html: body }} /></div>
       <div>Views: {note.views}</div>
       <Comments noteId={id} ></Comments>
-      <Button style={{marginTop: "40px"}}onClick={()=>{if(window.confirm('Delete the post?')){handleDelete(id, userNotes, navigate)}}}>Delete Post</Button>
+      <Button style={{marginTop: "40px"}} onClick={()=>{if(window.confirm('Delete the post?')){handleDelete(id, userNotes, navigate)}}}>Delete Post</Button>
     </Container>
 }}}

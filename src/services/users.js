@@ -2,7 +2,7 @@ import axios from "axios"
 
 
 
-const userUrl="/api/users"
+const userUrl="https://turquoise-angler-cuff.cyclic.app/api/users"
 
 export const updateUser= async (userObj)=>{
     const user= await axios.put(userUrl+"/"+userObj.id, userObj);
@@ -17,9 +17,10 @@ export const getUser = async (id) => {
 }
 
 export const newUser = async (userObj) => {
-
     const user = {  username: userObj.username, name: userObj.name, passwordHash: userObj.passwordHash, notes: [], followers:[], following: []}
     const resp = await axios.post(userUrl,user)
     return resp.data
-
 }
+/*
+https://turquoise-angler-cuff.cyclic.app
+*/
