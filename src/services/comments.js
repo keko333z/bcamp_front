@@ -4,7 +4,7 @@ import { token } from "./notes"
 
 
 
-const notesUrl="/api/comments"
+const notesUrl="https://turquoise-angler-cuff.cyclic.app/api/comments"
 
 
 
@@ -21,28 +21,13 @@ export const addComment= async (noteObj) => {
      const resp= await axios.post(notesUrl, noteObj, config)
     
     return resp.data
-    //.then(response => {const {data} = response; return data})
-    //.catch((error)=>{console.log(`error saving the new note ${error}`)})
 }
-
-/*export const getAllUserNotes= async (user)=>{
-        const id=user.id
-        const url ="http://localhost:3002/api/users/"+id
-        const notes= await axios.get(url)
-        return notes.data
-     
-       
-}*/
 
 export const getAllComments= async ()=>{
     const notes= await axios.get(notesUrl)
     return notes.data
    
 }
-
-//console.log(response.data)
-
-
 
 export const deleteComment= (id) => {
     

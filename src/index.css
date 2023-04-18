@@ -86,7 +86,7 @@ img {
   min-height: 200px;
   float: right;
   margin-right: 2%;
-  
+  margin-top: 20px;
  
 
 }
@@ -126,10 +126,13 @@ img {
 
 
 .footerStyle {
-  margin-left: 15%;
-  height: 130px;
+  display: flex;
+  justify-content: space-evenly; 
+  height: 150px;
+  border-radius: 6px;
   text-align: center;
-  padding-top: 20px; 
+  padding-top: 30px; 
+  padding-bottom: 40px;
   font-size: 13px;
   background: #212221 ;
   text-decoration: none !important;
@@ -140,20 +143,14 @@ img {
 }
 
 .app-container{
-  
-  max-height: 1080px;
-  min-height: 1080px;
-  margin-left: 15%;
+  display: flex;
+  flex-direction: column;
+  min-height: 1000px;
   padding-top: 2%;
   margin-bottom: 1%;
   background: white;
-  overflow: scroll ;
-  overflow-x: hidden;
   border-radius: 10px;
-  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
-  /*border-right: "2px solid grey";
-  border-left: "2px solid grey";*/
-  
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;  
 }
 
 .about-container {
@@ -163,6 +160,8 @@ img {
 }
 
 .notes-container{
+  display: flex;
+  flex-direction: column;
   width: 60% !important;
   margin-right: 35% !important;
   margin-top: 20px !important;
@@ -210,18 +209,18 @@ img {
     margin-right: 20%;
   }
   .notes-container  {
-    width: 80% !important;
-    margin-left: 20% !important;
+    width: 100% !important;
+    margin-left: 10% !important;
     margin-top: 20px !important;
     margin-bottom: 20px !important;
     
   }
   .footerStyle {
-    margin-left: 15%;
+    justify-content: space-around; 
+    flex-wrap: wrap;
     height: 130px;
-    text-align: center;
     padding-top: 20px; 
-    font-size: 12px;
+    font-size: 11px;
     background: #212221 ;
     text-decoration: none !important;
     font-family: Arial;

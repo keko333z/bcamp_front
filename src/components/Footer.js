@@ -9,13 +9,13 @@ export const Footer = () => {
       
     return <Container className="footerStyle">
             
-                    <Row  className="justify-content-center">
-                        <Col xs={2} >
+                     
+                        <Col xs={1} >
                             <Row >NodeJS</Row>
                             <Row>MongoDB</Row>
                             <Row>Mongoose</Row>
                         </Col>
-                        <Col xs={2}>
+                        <Col xs={1}>
                             <Row>Express</Row>
                             <Row>Apollo Server</Row>
                             <Row>GraphQL</Row>
@@ -26,12 +26,12 @@ export const Footer = () => {
                             <Row>Apollo Client</Row>
                             <Row>React Router</Row>
                         </Col>
-                        <Col xs={4}>
-                            <Row className="justify-content-start"> Mariano Nuñez  </Row>
-                            <Row className="justify-content-start"> marianojnz@gmail.com  </Row>
-                            <Row className="justify-content-start"> 2023  </Row>
+                        <Col xs={3}>
+                            <Row> Mariano Nuñez  </Row>
+                            <Row> marianojnz@gmail.com  </Row>
+                            <Row> 2023  </Row>
                         </Col>
-                    </Row>
+                    
             
         </Container>
         

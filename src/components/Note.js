@@ -15,9 +15,9 @@ import Button from "react-bootstrap/Button"
 
 export const Note = ({notes, setNotes, user, setUser}) => {  
   const [ note, setNote ] = useState([])
-  const [ noteLikes, setNoteLikes] = useState(0)
-  const [message, setMessage] = useState("")
-  const [postAlreadyLiked, setPostAlreadyLiked] = useState(false)
+  const [ noteLikes, setNoteLikes ] = useState(0)
+  const [ message, setMessage ] = useState("")
+  const [ postAlreadyLiked, setPostAlreadyLiked ] = useState(false)
   
   const {id} = useParams()
   
@@ -94,14 +94,14 @@ export const Note = ({notes, setNotes, user, setUser}) => {
   } else{
   
   if(notes.length > 0){ ///si no pongo esto crashea en el primer render antes de cargar las notes en el useEffect
-  let  alreadyLiked=false
+    let  alreadyLiked=false
   if(user){
-       alreadyLiked=user.liked.includes(id)}
-  const title=note.title
-  const body=note.body  
-  const unote = notes.find(note => note.id === id)
-  const poster=unote.user.username  
-  const userId = unote.user.id
+    alreadyLiked=user.liked.includes(id)}
+    const title=note.title
+    const body=note.body  
+    const unote = notes.find(note => note.id === id)
+    const poster=unote.user.username  
+    const userId = unote.user.id
    
     return (
       <>
@@ -117,25 +117,25 @@ export const Note = ({notes, setNotes, user, setUser}) => {
         border: "2px grey solid", 
         marginTop: "20px", 
         background: "white"}}>
-      <div className="noteHeader">
-      <h3>{title}</h3>
-      <Link className="user-link" to={"/users/"+userId}>{"User: "+poster}</Link>
-      </div>
-      <div   style={{marginTop: "50px", marginLeft: "2.5%", minHeight: "300px", width: "100%"}}>  
-      <div dangerouslySetInnerHTML={{ __html: body }}/></div>
-      <div style={{ marginTop:"100px"}}>Views: {note.views} Likes: {noteLikes+"  " }  
-      {
-      (postAlreadyLiked || alreadyLiked) ? 
-      <Button variant="success">Liked</Button> : 
-      <Button variant="outline-success" onClick={()=>addLike(userId)} >Like</Button>}
-      </div>
-      <Notification  message={message}></Notification>
-      <CommentForm user={user} noteId={id}></CommentForm>
+        <div className="noteHeader">
+          <h3>{title}</h3>
+          <Link className="user-link" to={"/users/"+userId}>{"User: "+poster}</Link>
+        </div>
+        <div   style={{marginTop: "50px", marginLeft: "2.5%", minHeight: "300px", width: "100%"}}>  
+          <div dangerouslySetInnerHTML={{ __html: body }}/></div>
+          <div style={{ marginTop:"100px"}}>Views: {note.views} Likes: {noteLikes+"  " }  
+          {
+          (postAlreadyLiked || alreadyLiked) ? 
+          <Button variant="success">Liked</Button> : 
+          <Button variant="outline-success" onClick={()=>addLike(userId)} >Like</Button>
+          }
+        </div>
+        <Notification  message={message}></Notification>
+        <CommentForm user={user} noteId={id}></CommentForm>
       
 
       </Container>
-      <Comments noteId={id} ></Comments>
+      <Comments noteId={id}></Comments>
       </>
      
 )}}}
-/* <Comment noteId={noteId}></Comment>*/

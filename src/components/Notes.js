@@ -1,5 +1,5 @@
 
-import {    Row, Container  } from "react-bootstrap"
+import { Row, Container } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
 

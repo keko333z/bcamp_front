@@ -6,7 +6,6 @@ import { HomeSide } from "./HomeSide"
 
 export const Home = ({notes, user}) => {
 const path="/notes/"
-
 return (
     <div className="home">     
         <HomeSide></HomeSide>
