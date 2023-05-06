@@ -1,6 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap"
-import React, { useState, useEffect } from 'react'
-import { getNoteComments } from "../services/comments"
+import React from 'react'
+
+
 import {Spinner} from "react-bootstrap"
 
 
@@ -26,19 +27,9 @@ const commentRowStyle = {
 
 
 
-export const Comments = ({noteId}) => {
-     const [ comments, setComments ] = useState([])
-     //console.log(noteId)
+export const Comments = ({ comments }) => {
      
-     useEffect (()=>{
-        try{
-        getNoteComments(noteId).then(comments=>setComments(comments))
-        }
-        catch(e){console.log("Error getting the comments "+e)}
-      },[noteId])
     
-       
-     
     
 
      if(!comments){
@@ -54,7 +45,7 @@ export const Comments = ({noteId}) => {
             <h5>Comments:</h5>
             {comments.map(comment => 
             <Row style={commentRowStyle} key={comment.id}>
-                <b>{comment.user.username}</b>
+                <b>{comment.user.username ? comment.user.username : comment.username}</b>
                 <div>{comment.body+"  "}
                     <Col style= {{float:"right", fontSize: "10px"}}>
                         {comment.date?.split('T')[0]}

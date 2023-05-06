@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Button,  Form } from "react-bootstrap"
-import { useNavigate } from 'react-router-dom'
-import { Notification } from '../App'
+import { Notification } from './Notification'
 import { addComment } from '../services/comments'
 
 
@@ -15,11 +14,11 @@ import { addComment } from '../services/comments'
 
 
 
-export const CommentForm= ({user, noteId})=>{
+export const CommentForm= ({user, noteId, comments, setComments})=>{
 const [ newBody, setNewBody ] =  useState('')
 const [logged, setLogged] = useState (false)
 const [message, setMessage]= useState("")
-const navigate = useNavigate()
+
 
 
 useEffect (()=>{
@@ -39,15 +38,18 @@ const handleNewComment = async () => {
   const commentObj= {
     body: newBody,
     user: user.id,
-    note: noteId
+    note: noteId,
+    
   }
     
          try
          { 
+         
          const comment= await addComment(commentObj)
-         console.log(comment)
-        // navigate('/notes/'+id)
-         window.location.reload()
+
+         const newComments= [{...comment, username: user.username}, ...comments]
+         setComments(newComments)
+        
          } catch (e){console.log(`error saving the new note ${e}`)}
          
 }

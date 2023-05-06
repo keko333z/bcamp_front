@@ -37,8 +37,12 @@ export const YourComments = () =>{
     const handleDelete= (id) => {
 
         if (window.confirm("Delete the comment?")){
-        removeComment({variables: { cid: id }}) //misma nombre que en la definicion de la mutation: cid
-        window.location.reload()
+            try {   
+                removeComment({variables: { cid: id }}) //misma nombre que en la definicion de la mutation: cid
+                window.location.reload()
+            }
+            catch(e){console.log(e)}
+        
         } 
         
    }

@@ -13,7 +13,7 @@ import { Quill } from 'react-quill';
 
 
 
-export const NoteForm= ({handleNewNote})=>{
+export const NoteForm= ({user, handleNewNote})=>{
   const [ newTitle, setNewTitle ] = useState('')
   const [ newBody, setNewBody ] =  useState('')
   const [chars, setChars]= useState(0)
@@ -41,17 +41,6 @@ export const NoteForm= ({handleNewNote})=>{
     }
   }), [])
 
-
- /* const modules = {
-
-    toolbar: [
-      [{ 'header': [1, 2, false] }],
-      ['bold', 'italic', 'underline','strike', 'blockquote'],
-      [{'list': 'ordered'}, {'list': 'bullet'}],
-      ['link', 'image'],
-      ['clean']
-    ],
-  }*/
   
   const formats = [
     'header',
@@ -62,22 +51,16 @@ export const NoteForm= ({handleNewNote})=>{
 
 
 const handleNewTitle = (event) => {
-    
-    setNewTitle(event.target.value)
-    
+  setNewTitle(event.target.value)
 }
 
 const handleNewBody = (html) => {
     setNewBody(html)
-    
     setChars(newBody.length)
-    
-   
 }
 
 const handleSubmit=(event)=>{
     event.preventDefault()
-    
     if((chars > 10000)||(newTitle.length >= 100)){
       window.alert("Title or Post too long")
     }
@@ -89,11 +72,9 @@ const handleSubmit=(event)=>{
       }
       else 
       {
-        handleNewNote(nnote)
+        handleNewNote(user, nnote)
         setNewTitle('')
         setNewBody('')
-        
-
       }}
 }
 const loggedUser = window.localStorage.getItem('userLoggedIn')
@@ -125,13 +106,3 @@ return(
 
 </div>
 )}}
-/*<div>
-
-name: <input value={newTitle} onChange={handleNewTitle}/>
-</div>
-<div><p>
-          phone: <input value={newBody} onChange={handleNewBody}/>
-          </p></div>
-        <div></div>*/
-
-        /*<Form.Control value={newBody} placeholder="new title" onChange={handleNewBody}></Form.Control>*/
