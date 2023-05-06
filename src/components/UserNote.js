@@ -7,6 +7,7 @@ import { useState, useEffect } from "react"
 import { getNote } from "../services/notes"
 import { Spinner } from "react-bootstrap"
 import { Comments } from "./Comments"
+import { getNoteComments } from "../services/comments"
 
 
 
@@ -25,19 +26,34 @@ const handleDelete = (id,  userNotes, navigate) => {
 }
 
 export const UserNote = ({userNotes}) => {  
- 
-  
+  const [ comments, setComments ] = useState([])
   const [ note, setNote ] = useState([])
+  const [ noteLikes, setNoteLikes ] = useState(0)
     
   const navigate= useNavigate()
   const {id} = useParams()
-  
   useEffect (()=>{
+    
+    setNote(null)
+    try{
+    getNote(id)
+    .then(note=>{setNote(note); setNoteLikes(note.likes)} )
+    } catch (e){ console.log("Something went wrong"+e)}
+    
+  },[id])
+
+  useEffect (()=>{
+    try{
+      getNoteComments(id).then(com=>setComments(com))
+    }
+    catch(e){console.log("Error getting the comments "+e)}
+    },[id])
+  /*useEffect (()=>{
     setNote(null)
     getNote(id)
     .then(anotes=>setNote(anotes))
     
-  },[id])
+  },[id])*/
   
   const containerStyle={
   minHeight: "600px", 
@@ -68,8 +84,8 @@ export const UserNote = ({userNotes}) => {
       </div>
       <div style={{marginTop: "50px", marginLeft: "2.5%", minHeight: "300px", width: "100%"}}>
       <div dangerouslySetInnerHTML={{ __html: body }} /></div>
-      <div>Views: {note.views}</div>
-      <Comments noteId={id} ></Comments>
+      <div>Views: {note.views} Likes: {noteLikes+"  "}</div>
+      <Comments comments={comments}></Comments>
       <Button style={{marginTop: "40px"}} onClick={()=>{if(window.confirm('Delete the post?')){handleDelete(id, userNotes, navigate)}}}>Delete Post</Button>
     </Container>
 }}}

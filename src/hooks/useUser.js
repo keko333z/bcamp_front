@@ -54,7 +54,7 @@ export const useUser = () => {
     }
 
     const handleLogOut= ()=>{
-        user.logout()
+        logout()
         navigate('/')
         window.location.reload()
       }
