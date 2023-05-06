@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import {Route, useNavigate, Routes} from 'react-router-dom'
-import { addNote, update, setToken } from './services/notes'
 import { NoteForm } from './components/NotesForm'
 import { LoginForm } from './components/LoginForm'
 import { Footer } from './components/Footer'
@@ -24,65 +23,23 @@ import { useUser } from './hooks/useUser'
 
 
 
-const notificationMessage = {
-  color: "red",
-  borderRadius: 3,
-  float: "left",
-  padding: "10px"
-}
-export const Notification = ({message}) => {
-  return  <div style={notificationMessage}>{message}</div>
-       
-}
+
+
 
 
 const App = () => {
    
   const [errorMessage, setErrorMessage] = useState('')
-  const {notes, updateNotes} = useNotes()
+  const {notes, updateNotes, handleNewNote} = useNotes()
   const user = useUser()
-  const navigate=useNavigate()
-
-  const handleNewNote = async (noteObj) => {
-    let exist=null
-    exist=user.userNotes.find(element =>(element.title === noteObj.title)) 
-        if (!exist)
-        {
-          try
-          { 
-          const note= await addNote(noteObj)//.then(note => {setNotes(note)})  
-          const newUserNotes=user.userNotes.concat(note)
-          user.updateUserNotes(newUserNotes)
-          updateNotes(notes.concat(note))
-          window.localStorage.removeItem('allUserNotes')
-          window.localStorage.setItem('allUserNotes',JSON.stringify(newUserNotes))
-          console.log(newUserNotes)
-          navigate('/notes/'+note.id)
-          window.location.reload()
-          } catch (e){console.log(`error saving the new note ${e}`)}
-     
-        } 
-        else 
-        {
-          update(exist.id, noteObj).then(response => {console.log(response.data); }).catch(error => {
-          return <Notification message={error}></Notification>})
-        }
-}
-
-
-
-const handleLogOut= ()=>{
-  user.logout()
-  navigate('/')
-  window.location.reload()
-}
-
+  
+  
 
  
 
-  return (
+return (
     <>
-    <Header user={user.user} handleLogOut={handleLogOut}></Header>
+    <Header user={user.user} handleLogOut={user.handleLogOut}></Header>
     
     <Container className='app-container'>
           <Routes >
@@ -102,7 +59,7 @@ const handleLogOut= ()=>{
                 }></Route>
             <Route path="/followers" element={<Followers followers={user.followers}/>}></Route>
             <Route path="/following" element={<Following following={user.following}/>}></Route>
-            <Route path="/newnote" element={<NoteForm handleNewNote={handleNewNote}/>}></Route>
+            <Route path="/newnote" element={<NoteForm user={user} handleNewNote={handleNewNote}/>}></Route>
             <Route path="/*" element={<NotFound />} />
           </Routes>
       </Container>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { setToken } from "../services/notes"
 import { userLogin } from "../services/login"
 import { getAllUserNotes } from "../services/notes"
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -10,6 +11,7 @@ export const useUser = () => {
     const [ followers, setFollowers ] = useState([]) 
     const [ following, setFollowing ] = useState([])
     const [ userNotes, setUserNotes ] = useState([])
+    const navigate= useNavigate
 
     const updateUser = (u) => {
         setUser(u)
@@ -51,6 +53,12 @@ export const useUser = () => {
         setUserNotes([])
     }
 
+    const handleLogOut= ()=>{
+        user.logout()
+        navigate('/')
+        window.location.reload()
+      }
+
     const login = async (userObj) => {
         const userData= await userLogin(userObj)
         setUser(userData)
@@ -73,7 +81,7 @@ export const useUser = () => {
         updateFollowing, 
         userNotes,
         updateUserNotes,
-        logout,
+        handleLogOut,
         login
     }
 }

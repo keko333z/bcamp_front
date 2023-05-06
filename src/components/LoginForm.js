@@ -1,7 +1,7 @@
 import React from "react"
 import { useState } from "react"
 import { Button, Container, Form } from "react-bootstrap"
-import { Notification } from "../App"
+import { Notification } from "./Notification"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import { useNavigate } from "react-router-dom"

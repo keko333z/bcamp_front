@@ -1,10 +1,10 @@
 import React, { useEffect, useState} from "react"
 import { Link } from "react-router-dom"
 import { useParams } from "react-router-dom"
-import { getNote } from "../services/notes"
+import { getNote, update } from "../services/notes"
 import { Container, Spinner } from "react-bootstrap"
-import { update } from "../services/notes"
-import { Notification } from "../App"
+import { getNoteComments } from "../services/comments"
+import { Notification } from "./Notification"
 import { updateUser } from "../services/users"
 import { CommentForm } from "./CommentForm"
 import { Comments } from "./Comments"
@@ -13,11 +13,13 @@ import Button from "react-bootstrap/Button"
 
 
 
-export const Note = ({notes, setNotes, user, setUser}) => {  
+
+export const Note = ({notes, user, setUser }) => {  
   const [ note, setNote ] = useState([])
   const [ noteLikes, setNoteLikes ] = useState(0)
   const [ message, setMessage ] = useState("")
   const [ postAlreadyLiked, setPostAlreadyLiked ] = useState(false)
+  const [ comments, setComments ] = useState([])
   
   const {id} = useParams()
   
@@ -31,7 +33,17 @@ export const Note = ({notes, setNotes, user, setUser}) => {
     
   },[id])
 
+  useEffect (()=>{
+    try{
+      getNoteComments(id).then(com=>setComments(com))
+    }
+    catch(e){console.log("Error getting the comments "+e)}
+    },[id])
 
+
+  const updateComments = (comment) => {
+      setComments(comment)
+   }
 
 
   const addLike= async(userId)=>{
@@ -71,13 +83,7 @@ export const Note = ({notes, setNotes, user, setUser}) => {
   }}}
 
 
-  const noteStyle ={
-    img: {
-      maxWidth: "90%",
-      maxHeight: "90%",
-     
-    }
-  }
+
 
 
 
@@ -131,11 +137,11 @@ export const Note = ({notes, setNotes, user, setUser}) => {
           }
         </div>
         <Notification  message={message}></Notification>
-        <CommentForm user={user} noteId={id}></CommentForm>
+        <CommentForm comments={comments} setComments={updateComments} user={user} noteId={id}></CommentForm>
       
 
       </Container>
-      <Comments noteId={id}></Comments>
+      <Comments comments={comments}></Comments>
       </>
      
 )}}}

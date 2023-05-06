@@ -3,7 +3,7 @@ import { useState } from "react"
 import { Button, Form } from "react-bootstrap"
 import { newUser } from "../services/users"
 import { useNavigate} from "react-router-dom"
-import { Notification } from "../App"
+import { Notification } from "./Notification"
 
 
 

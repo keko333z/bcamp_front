@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Col } from "react-bootstrap";
-import { Row } from "react-bootstrap";
 
 
 export const About = () => {
@@ -22,7 +20,7 @@ return <div className="about-container">
                             <p>Apollo Client</p>
                             <p>React Router</p>
                             <div >
-                            <p style={{marginTop: "50px"}}> Se creo siguiendo el Bootcamp: <Link to="https://fullstackopen.com/es/">https://fullstackopen.com/es/</Link></p>
+                            <p style={{marginTop: "50px", width: "10%"}}> <a target="_blank" rel="noreferrer" href="https://github.com/keko333z?tab=repositories"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="github"></img></a></p>
                             <p className="justify-content-start" style={{marginTop: "50px"}}> Mariano Nuñez - marianojnz@gmail.com  </p>
                             
                             <p className="justify-content-start"> 2022-2023  </p>
