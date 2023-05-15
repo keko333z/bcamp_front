@@ -20,7 +20,7 @@ export const Notes = ({notes, user, path}) =>{
                                   <div >
                                     <h5>{note.title+"  "}</h5>
                                   
-                                  {path==="/yourposts/" ? "" : <div style={{ opacity: "0.85", textAlign: "justify",width: "95%", marginLeft: "3%",  fontSize: "13px", padding: "15px"}}dangerouslySetInnerHTML={{ __html: note?.body?.substring(0,300)+"..." }}></div>}
+                                  {path==="/yourposts/" ? "" : <div className='notes-body' dangerouslySetInnerHTML={{ __html: note?.body?.substring(0,300)+"..." }}></div>}
                                   </div>
                                   <div className="notes-footer">
                                     <b> Views:{note.views} Likes: {note.likes} Created: {note?.date?.split('T')[0]}</b>

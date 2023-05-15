@@ -49,9 +49,8 @@ return (
 <Container>
 <Row>
   <Col md={8}>
-    <Form style={{border: "2px solid grey",width: "65%", marginLeft:"35%", marginTop:"100px", minHeight: "200px", padding: "20px", borderRadius: "6px"}} 
-      onSubmit={handleSubmit}>
-        Log into your Account:
+    <Form className="login-form" onSubmit={handleSubmit}>
+      Log into your Account:
       <Form.Group style={{padding: 5}} className="username">
          <Form.Control value={username} placeholder="username" onChange={handleUsername}></Form.Control>
       </Form.Group>

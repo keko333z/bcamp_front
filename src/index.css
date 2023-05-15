@@ -58,9 +58,19 @@ img {
   border: 2px grey solid;
   margin-left: 25%;
   margin-top: 100px;
-  width: 50%;
-      
+  width: 50%;    
 }
+
+.login-form { 
+  border: 2px solid grey;
+  width: 65%;
+  margin-left:35%;
+  margin-top:100px;
+  min-height: 200px; 
+  padding: 20px; 
+  border-radius: 6px;
+}
+
 .header-link-style{
   padding : 15px !important;
   padding-left: 10px !important;
@@ -95,7 +105,7 @@ img {
   width:90%;
   margin-top: 20px;
   margin-bottom: 30px;
-  
+  background: #fff;
   padding: 10px;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
@@ -148,7 +158,7 @@ img {
   min-height: 1000px;
   padding-top: 2%;
   margin-bottom: 1%;
-  background: white;
+  background: #f2f2f2;
   border-radius: 10px;
   box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;  
 }
@@ -161,6 +171,7 @@ img {
 
 .notes-container{
   display: flex;
+  background: #f2f2f2;
   flex-direction: column;
   width: 60% !important;
   margin-right: 35% !important;
@@ -170,11 +181,12 @@ img {
 }
 
 .notes-row { 
-  background: white;
-  margin-top: 20px !important;
-  border-radius: 5px !important;
-  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px !important; 
-  overflow: hidden !important;
+ background: white;
+ margin-top: 20px !important;
+ border-radius: 5px !important;
+ /*box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px !important; */
+ box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+ overflow: hidden !important;
  max-height: 700px !important;
  width: 90% !important;
 }
@@ -187,6 +199,22 @@ img {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   margin-bottom: 10px;
   padding-top: 5px;
+}
+
+.notes-body { 
+  opacity: 0.85; 
+  text-align: justify;
+  width: 100%; 
+  margin-left: 4%;  
+  font-size: 13px; 
+  padding: 15px;
+}
+.notes-body img{
+  width: 100%;
+  margin-left: 3%;
+}
+.notes-body p{
+  width: 95%;
 }
 
 .notes-footer {
@@ -235,4 +263,19 @@ img {
     z-index: 999;
     margin-bottom: 30px;
   }
+  .registerForm {
+    float: left;
+    padding: 20px;
+    border-radius: 5px;
+    border: 2px grey solid;
+    margin-left: 10%;
+    margin-top: 100px;
+    width: 80%;
+  }
+
+  .login-form { 
+    width: 80%;
+    margin-left:10%;
+  }
+
 }
