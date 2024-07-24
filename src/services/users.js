@@ -2,7 +2,7 @@ import axios from "axios"
 
 
 
-const userUrl="https://turquoise-angler-cuff.cyclic.app/api/users"
+const userUrl="https://nodeapp-cifz.onrender.com/api/users"
 
 export const updateUser= async (userObj)=>{
     const user= await axios.put(userUrl+"/"+userObj.id, userObj);

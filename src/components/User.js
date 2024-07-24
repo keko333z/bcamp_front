@@ -3,7 +3,8 @@ import { Notes } from "./Notes"
 import { updateUser } from "../services/users"
 import { getUser } from "../services/users"
 import { setToken } from "../services/notes"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { UserContext } from "../contexts/userContext"
 
 
 
@@ -80,18 +81,14 @@ const handleUnfollow= async (id,  user, setUser, setFollowing)=>{
 
 
 
-export const User=({notes, user, setUser, setFollowing})=>{
+export const User=({notes})=>{
 
     const [userToFollow,setUserToFollow]= useState([])
-    
-    
     const {id}= useParams()
-    
+    const {user, setUser, setFollowing} = useContext(UserContext)
 
-    useEffect (()=>{ 
-        
+    useEffect (()=>{      
         getUser(id).then(user=>setUserToFollow(user))
-        
       },[id])
     
     let display=" "

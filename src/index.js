@@ -9,11 +9,12 @@ import { HashRouter } from 'react-router-dom';
 import { 
     ApolloClient, ApolloProvider, HttpLink, InMemoryCache
   } from '@apollo/client' 
+import { UserProvider } from './contexts/userContext';
   
   const client = new ApolloClient({
     cache: new InMemoryCache(),
     link: new HttpLink({
-      uri: 'https://turquoise-angler-cuff.cyclic.app/graphql',
+      uri: 'https://nodeapp-cifz.onrender.com/graphql',
     })
   })
 
@@ -21,7 +22,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <ApolloProvider client={client}>
     <HashRouter>
-    <App />
+      <UserProvider>
+        <App />
+      </UserProvider>
     </HashRouter>
     </ApolloProvider>
 );

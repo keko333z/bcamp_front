@@ -1,17 +1,27 @@
-import { useState, useEffect } from "react"
-import { setToken } from "../services/notes"
+import { useContext } from "react"
+import { setToken, getAllUserNotes } from "../services/notes"
 import { userLogin } from "../services/login"
-import { getAllUserNotes } from "../services/notes"
 import { useNavigate } from "react-router-dom"
+import { UserContext } from "../contexts/userContext"
 
 
 
 export const useUser = () => {
-    const [ user, setUser ] = useState(null)
-    const [ followers, setFollowers ] = useState([]) 
-    const [ following, setFollowing ] = useState([])
-    const [ userNotes, setUserNotes ] = useState([])
-    const navigate= useNavigate
+  
+    const navigate= useNavigate()
+
+    const {  
+        user, 
+        setUser, 
+        followers, 
+        setFollowers,
+        following, 
+        setFollowing,
+        userNotes, 
+        setUserNotes
+    } = useContext(UserContext)
+
+    
 
     const updateUser = (u) => {
         setUser(u)
@@ -29,20 +39,7 @@ export const useUser = () => {
         setUserNotes(u)
     }
 
-    useEffect (()=>{
-        //se ejecuta cada vez q se recarga la pagina y solo esa vez 
-        const loggedUser = window.localStorage.getItem('userLoggedIn')
-        const loggedUserNotes = window.localStorage.getItem('allUserNotes')
-        if(loggedUser){
-          const user=JSON.parse(loggedUser)
-          setUser(user)
-          setToken(user.token)
-          const loggedUNotes=JSON.parse(loggedUserNotes)
-          setUserNotes(loggedUNotes.reverse())
-          setFollowers(user.followers)
-          setFollowing(user.following)
-        }
-      }, [])
+    
 
     const logout = () => {
         console.log('loggin out')
@@ -53,7 +50,7 @@ export const useUser = () => {
         setUserNotes([])
     }
 
-    const handleLogOut= ()=>{
+    const handleLogOut = () => {
         logout()
         navigate('/')
         window.location.reload()

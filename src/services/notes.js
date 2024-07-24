@@ -2,7 +2,7 @@ import axios from "axios"
 
 
 
-const notesUrl="https://turquoise-angler-cuff.cyclic.app/api/notes"
+const notesUrl="https://nodeapp-cifz.onrender.com/api/notes"
 
 export let token= null
 
@@ -25,7 +25,7 @@ export const addNote= async (noteObj) => {
 
 export const getAllUserNotes= async (user)=>{
         const id=user.id
-        const url ="https://turquoise-angler-cuff.cyclic.app/api/users/"+id
+        const url ="https://nodeapp-cifz.onrender.com/api/users/"+id
         const notes= await axios.get(url)
         return notes.data   
 }

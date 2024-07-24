@@ -55,7 +55,7 @@ return (
             <Route path="/yourposts/:id"  element={<UserNote  userNotes={user.userNotes} setUserNotes={user.updateUserNotes}/>}></Route>
             <Route path="/notes/:id"   element={<Note user={user.user} setUser={user.updateUser} setNotes={updateNotes} notes={notes}/>}></Route>
             <Route path="/users/:id" element={
-                <User  user={user.user} setUser={user.updateUser} setFollowing={user.updateFollowing}  notes={notes}/>
+                <User  /*user={user.user} setUser={user.updateUser} setFollowing={user.updateFollowing}*/  notes={notes}/>
                 }></Route>
             <Route path="/followers" element={<Followers followers={user.followers}/>}></Route>
             <Route path="/following" element={<Following following={user.following}/>}></Route>
